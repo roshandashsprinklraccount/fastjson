@@ -85,6 +85,16 @@ public class IOUtils {
         return (prop == null) ? DEFAULT_PROPERTIES.getProperty(name) : prop;
     }
     
+    public static String getStringProperty(String name, String defaultValue) {
+        String prop = null;
+        try {
+            prop = System.getProperty(name);
+        } catch (SecurityException e) {
+            //skip
+        }
+        return (prop == null) ? (DEFAULT_PROPERTIES.getProperty(name) == null ? defaultValue : DEFAULT_PROPERTIES.getProperty(name)) : prop;
+    }
+    
     public static void loadPropertiesFromFile(){
         InputStream imputStream = AccessController.doPrivileged(new PrivilegedAction<InputStream>() {
             public InputStream run() {
